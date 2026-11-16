@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Board from './pages/Board';
 import Dispatch from './pages/Dispatch';
 import Merchants from './pages/Merchants';
+import Couriers from './pages/Couriers';
 import OrderDetail from './pages/OrderDetail';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/" element={<Board />} />
         <Route path="/dispatch" element={<Dispatch />} />
         <Route path="/merchants" element={<Merchants />} />
+        <Route path="/couriers" element={<Couriers />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -7,10 +7,11 @@ export const STALE_MIN = 180; // dispatch.stale_after_minutes
 export interface Rider {
   id: string; name: string; phone: string; kind: 'courier' | 'driver'; vehicle: string;
   container: string; availability: 'online' | 'busy' | 'offline'; lastSeenMin: number;
+  plate?: string; active?: boolean; jobs?: number; earningsMinor?: number; cashHeldMinor?: number;
 }
 export interface Offer { id: string; orderId: string; riderId: string; status: 'sent' | 'accepted' | 'declined' | 'expired'; sentAt: string }
 
-const riders: Rider[] = [
+export const riders: Rider[] = [
   { id: 'r1', name: 'Peter Otieno', phone: '+254712000111', kind: 'courier', vehicle: 'Motorbike KMEA 123A', container: 'Kilimani', availability: 'busy', lastSeenMin: 2 },
   { id: 'r2', name: 'Faith Wanjiru', phone: '+254722000222', kind: 'courier', vehicle: 'Motorbike KMFB 456B', container: 'Kilimani', availability: 'online', lastSeenMin: 6 },
   { id: 'r3', name: 'Hassan Ali', phone: '+254733000333', kind: 'courier', vehicle: 'Motorbike KMDC 789C', container: 'Kilimani', availability: 'online', lastSeenMin: 200 },
@@ -36,7 +37,7 @@ function take(o: Order, r: Rider, admin: string, note: string) {
 }
 
 export const dispatch = {
-  listRiders: () => later(copy(riders)),
+  listRiders: () => later(copy(riders.filter((r) => r.active !== false))),
   listOffers: () => later(copy(offers)),
   sendOffers: async (orderId: string, riderIds: string[]) => {
     const o = find(orderId);
